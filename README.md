@@ -1,14 +1,23 @@
 # Carteira Bitcoin Cash - NeoWallet
 
-Este projeto é uma carteira simples de Bitcoin Cash implementada em JavaScript. Ele permite que os usuários gerenciem seus fundos de Bitcoin Cash (BCH), incluindo a criação de uma carteira, verificação de saldos e envio de transações.
+Este projeto é uma carteira simples de Bitcoin Cash implementada em JavaScript. Ele permite que os usuários gerenciem seus fundos de Bitcoin Cash (BCH), incluindo a criação de uma carteira, envio de transações e consulta de histórico.
 
 ## Funcionalidades
 
-- Criar uma nova carteira de Bitcoin Cash
-- Verificar o saldo da carteira
-- Enviar transações de Bitcoin Cash
-- Recuperar o histórico de transações
-- Validar transações
+- **Geração de Pares de Chaves (Pública e Privada)**  
+  Gere uma frase mnemônica, chave privada, chave pública e endereço no formato CashAddr.
+
+- **Criação de Carteiras**  
+  Crie uma nova carteira com suporte para geração de chaves e endereço.
+
+- **Envio de Transações (Simulação)**  
+  Simule o envio de BCH para outros endereços, com validação de saldo e registro no histórico.
+
+- **Recebimento de Transações (Simulação)**  
+  Simule o recebimento de BCH, atualizando o saldo da carteira.
+
+- **Histórico de Transações**  
+  Consulte o histórico de transações realizadas pela carteira.
 
 ## Estrutura do Projeto
 
@@ -45,65 +54,54 @@ bitcoin-cash-wallet
 Para usar a carteira, você pode importar a classe `Wallet` de `src/wallet.js` e criar uma instância dela. Aqui está um exemplo simples:
 
 ```javascript
-const Wallet = require('./src/wallet');
+import Wallet from './src/wallet.js';
 
-const minhaCarteira = new Wallet();
-minhaCarteira.createWallet();
-console.log(`Endereço da Carteira: ${minhaCarteira.getAddress()}`);
-console.log(`Saldo: ${minhaCarteira.checkBalance()}`);
+(async () => {
+    const minhaCarteira = new Wallet();
+
+    // Gerar o par de chaves
+    await minhaCarteira.generateKeyPair();
+
+    // Simular envio de transação
+    minhaCarteira.receiveTransaction(10); // Adiciona 10 BCH ao saldo
+    minhaCarteira.sendTransaction(5, 'endereco-do-recipiente'); // Envia 5 BCH
+
+    // Consultar histórico de transações
+    console.log(minhaCarteira.getTransactionHistory());
+})();
 ```
 
 ## Metas do Projeto
 
-- [ ] **Geração de Pares de Chaves (Pública e Privada)**  
-  Implementar um sistema seguro para gerar chaves criptográficas usando bibliotecas como `crypto` ou `bitcoin-cash-lib`.
+- [x] **Geração de Pares de Chaves (Pública e Privada)**  
+  Gere chaves criptográficas usando bibliotecas como `@psf/bch-js`.
 
-- [ ] **Suporte a Endereços Formatados (CashAddr)**  
-  Adicionar suporte ao formato de endereços padrão do Bitcoin Cash (CashAddr) para garantir compatibilidade com a rede BCH.
+- [x] **Criação de Carteiras**  
+  Permitir que o usuário crie uma nova carteira com geração de chaves e endereço.
 
-- [ ] **Criação de Carteiras**  
-  Permitir que o usuário crie uma nova carteira diretamente pela interface web, exibindo o endereço público e armazenando a chave privada de forma segura.
+- [x] **Envio de Transações (Simulação)**  
+  Simular o envio de BCH para outros endereços.
+
+- [x] **Recebimento de Transações (Simulação)**  
+  Simular o recebimento de BCH.
+
+- [x] **Histórico de Transações**  
+  Exibir o histórico de transações realizadas pela carteira.
 
 - [ ] **Consulta de Saldo**  
-  Implementar uma funcionalidade para consultar o saldo da carteira e exibi-lo na interface web, utilizando APIs externas como a [Blockchair API](https://blockchair.com/api/docs) ou [Bitcoin.com API](https://developers.bitcoin.com/).
+  Implementar uma funcionalidade para consultar o saldo da carteira utilizando APIs externas.
 
-- [ ] **Envio de Transações**  
-  Criar um formulário na interface web para que o usuário insira o endereço do destinatário e o valor a ser enviado. A transação deve ser assinada com a chave privada da carteira.
-
-- [ ] **Recebimento de Transações**  
-  Exibir o endereço público da carteira na interface web para que o usuário possa receber BCH. Opcionalmente, monitorar a blockchain para confirmar transações recebidas.
-
-- [ ] **Histórico de Transações**  
-  Exibir o histórico de transações da carteira em uma página dedicada, utilizando APIs externas para buscar os dados.
-
-- [ ] **Validação de Transações**  
-  Garantir que todas as transações sejam validadas antes de serem enviadas, verificando assinaturas, valores e taxas.
+- [ ] **Envio Real de Transações**  
+  Criar uma funcionalidade para enviar transações reais na rede Bitcoin Cash.
 
 - [ ] **Integração com APIs Externas para Preço do BCH**  
-  Adicionar uma funcionalidade para consultar o preço atual do BCH em tempo real e exibi-lo na interface web.
+  Adicionar uma funcionalidade para consultar o preço atual do BCH em tempo real.
 
-- [ ] **Sistema de Logs**  
-  Implementar um sistema de logs para registrar todas as operações realizadas pela carteira (criação, envio, recebimento, etc.).
+- [ ] **Validação de Transações**  
+  Garantir que todas as transações sejam validadas antes de serem enviadas.
 
 - [ ] **Testes Unitários**  
-  Escrever testes para validar todas as funcionalidades principais, garantindo a confiabilidade do sistema.
-
-- [ ] **Criação de Páginas HTML**  
-  Desenvolver páginas HTML para:
-  - Criar e gerenciar carteiras
-  - Consultar saldo
-  - Enviar e receber transações
-  - Exibir histórico de transações
-  - Mostrar o preço do BCH em tempo real
-
-- [ ] **Estilização com CSS**  
-  Criar um design simples e responsivo para as páginas HTML, utilizando **CSS puro** ou frameworks como **Bootstrap** ou **Tailwind CSS**.
-
-- [ ] **Interatividade com JavaScript**  
-  Adicionar interatividade às páginas HTML usando JavaScript para manipular dados e interagir com o backend.
-
-- [ ] **Documentação de Uso**  
-  Criar uma documentação clara para que os usuários saibam como usar a interface web e suas funcionalidades.
+  Escrever testes para validar todas as funcionalidades principais.
 
 ## Contribuindo
 

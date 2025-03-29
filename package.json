@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/gustavodarosa/NeoWallet#readme",
   "dependencies": {
-    "@psf/bch-js": "^6.8.0"
+    "@psf/bch-js": "^6.8.0",
+    "axios": "^1.8.4",
+    "prompt-sync": "^4.2.0"
   }
 }
