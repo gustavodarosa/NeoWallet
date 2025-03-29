@@ -1,0 +1,25 @@
+{
+  "name": "bitcoin-cash-wallet",
+  "version": "1.0.0",
+  "description": "A simple Bitcoin Cash wallet implemented in JavaScript.",
+  "main": "src/wallet.js",
+  "scripts": {
+    "start": "node src/wallet.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bitcoin-cash-lib": "^1.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  },
+  "keywords": [
+    "bitcoin",
+    "cash",
+    "wallet",
+    "cryptocurrency"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
