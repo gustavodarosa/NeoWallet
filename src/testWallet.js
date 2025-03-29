@@ -1,7 +1,9 @@
-const Wallet = require('./wallet');
+import Wallet from './wallet.js';
 
-// Criar uma nova instância da carteira
-const minhaCarteira = new Wallet();
+(async () => {
+    // Criar uma nova instância da carteira
+    const minhaCarteira = new Wallet();
 
-// Gerar o par de chaves
-minhaCarteira.generateKeyPair();
+    // Gerar o par de chaves
+    await minhaCarteira.generateKeyPair(); // Adicionado await
+})();

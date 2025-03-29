@@ -1,4 +1,6 @@
-import bitcore from 'bitcoin-cash-lib'; // Certifique-se de que a biblioteca está instalada
+import BCHJS from '@psf/bch-js';
+
+const bchjs = new BCHJS();
 
 class Wallet {
     constructor() {
@@ -10,19 +12,19 @@ class Wallet {
     }
 
     // Método para gerar o par de chaves
-    generateKeyPair() {
-        // Gerar uma chave privada
-        const privateKey = new bitcore.PrivateKey();
-        this.privateKey = privateKey.toString();
-
-        // Gerar a chave pública correspondente
-        const publicKey = privateKey.toPublicKey();
-        this.publicKey = publicKey.toString();
-
-        // Gerar o endereço Bitcoin Cash (formato CashAddr)
-        const address = privateKey.toAddress();
-        this.address = address.toString();
-
+    async generateKeyPair() {
+        // Gerar uma frase mnemônica
+        const mnemonic = bchjs.Mnemonic.generate(128); // 128 bits de entropia
+        console.log(`Frase Mnemônica: ${mnemonic}`);
+    
+        // Gerar a chave privada e o endereço a partir da frase mnemônica
+        const rootSeed = await bchjs.Mnemonic.toSeed(mnemonic); // Adicionado await
+        const hdNode = bchjs.HDNode.fromSeed(rootSeed);
+    
+        this.privateKey = bchjs.HDNode.toWIF(hdNode); // Exporta a chave privada
+        this.publicKey = bchjs.HDNode.toPublicKey(hdNode).toString('hex');
+        this.address = bchjs.HDNode.toCashAddress(hdNode); // Gera o endereço no formato CashAddr
+    
         console.log('Chaves geradas com sucesso!');
         console.log(`Chave Privada: ${this.privateKey}`);
         console.log(`Chave Pública: ${this.publicKey}`);
